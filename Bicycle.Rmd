@@ -1,0 +1,54 @@
+---
+title: "Bicycle"
+author: "SeungPark"
+date: '2021 11 8 '
+output:
+  html_document: 
+    fig_height: 6
+    fig_width: 10
+    highlight: textmate
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: true
+  pdf_document:
+    fig_height: 6
+    fig_width: 9
+    toc: no
+  word_document:
+    fig_height: 6
+    fig_width: 9
+    toc: no
+---
+```{r setup, include=FALSE, cache=FALSE, echo=TRUE}
+knitr::opts_chunk$set(error = TRUE, include = TRUE)
+options(reticulate.repl.quiet =TRUE)
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+```
+
+```{r}
+bicycle = read.csv(file="C:/Users/ps712/Desktop/11.csv", header=TRUE, sep = ",")
+```
+
+```{r}
+
+full = lm(number_of_rentals~year+month+day+humidity+low_temp+high_temp+Precipitation_Probability+wind_direction+sky_condition+precipitation_form+wind_speed+week_day, data=bicycle)
+null = lm(number_of_rentals~1, data = bicycle)
+
+```
+
+```{r}
+step(null, scope=list(upper=full), direction="both")
+
+
+
+```
+
+
